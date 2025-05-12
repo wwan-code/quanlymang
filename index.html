@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đồ án: Xử lý Mảng Số Nguyên - Giao Diện Grid</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-wrapper">
+        <header class="app-header">
+            <h1>Trình Xử Lý Mảng Số Nguyên</h1>
+        </header>
+
+        <main class="main-content-grid">
+            <div class="grid-area-left">
+                <section class="input-section operations-section-wrapper">
+                    <div class="operation-block">
+                        <h2>1. Khởi Tạo Mảng</h2>
+                        <div class="form-group">
+                            <label for="arrayInput">Nhập các số nguyên (cách nhau bằng dấu phẩy ',' hoặc khoảng
+                                trắng):</label>
+                            <input type="text" id="arrayInput" placeholder="Ví dụ: 1, 2, 3, 4, 5 hoặc 10 25 8 -5">
+                        </div>
+                        <div class="button-group">
+                            <button id="btnCreateArray">Tạo / Cập Nhật Mảng</button>
+                            <button id="btnRandomArray" class="secondary">Tạo Mảng Ngẫu Nhiên</button>
+                        </div>
+                    </div>
+
+                    <div class="operation-block">
+                        <h3>Sắp Xếp Mảng</h3>
+                        <div class="form-group">
+                            <label for="sortAlgorithmSelect">Chọn thuật toán sắp xếp:</label>
+                            <select id="sortAlgorithmSelect">
+                                <option value="bubbleSort">Bubble Sort</option>
+                                <option value="selectionSort">Selection Sort</option>
+                                <option value="insertionSort">Insertion Sort</option>
+                                <option value="quickSort">Quick Sort</option>
+                            </select>
+                        </div>
+                        <div class="button-group">
+                            <button id="btnSortArray">Sắp Xếp Mảng</button>
+                        </div>
+                        <p class="result-text" style="margin-top:10px;"><em>Lưu ý: Thao tác sắp xếp sẽ thay đổi mảng
+                                hiện tại.</em></p>
+                    </div>
+                </section>
+
+                <div class="array-display-container">
+                    <h3>Mảng Hiện Tại</h3>
+                    <div id="currentArrayDisplay">[Chưa có mảng]</div>
+                </div>
+
+                <div id="arrayVisualization">
+                </div>
+                <div id="messageArea"></div>
+            </div>
+
+            <div class="grid-area-right">
+                <section class="operations-section-wrapper">
+                    <h2>2. Các Thao Tác</h2>
+
+                    <div class="operation-block">
+                        <h3>Tìm Kiếm Phần Tử</h3>
+                        <div class="form-group">
+                            <label for="searchValue">Giá trị cần tìm:</label>
+                            <input type="number" id="searchValue" placeholder="Nhập số để tìm">
+                        </div>
+                        <div class="button-group">
+                            <button id="btnLinearSearch">Tìm Kiếm Tuần Tự</button>
+                            <button id="btnBinarySearch">Tìm Kiếm Nhị Phân (Mảng cần sắp xếp)</button>
+                        </div>
+                        <p class="result-text">Kết quả: <span id="searchResultTxt">-</span></p>
+                    </div>
+
+                    <div class="operation-block">
+                        <h3>Thông Tin Mảng</h3>
+                        <div class="button-group">
+                            <button id="btnFindMax">Tìm Số Lớn Nhất</button>
+                            <button id="btnFindMin">Tìm Số Nhỏ Nhất</button>
+                            <button id="btnSumArray">Tính Tổng Các Phần Tử</button>
+                        </div>
+                        <p class="result-text">Max: <span id="maxResultTxt">-</span> &nbsp;|&nbsp; Min: <span
+                                id="minResultTxt">-</span> &nbsp;|&nbsp; Tổng: <span id="sumResultTxt">-</span></p>
+                    </div>
+
+                    <div class="operation-block">
+                        <h3>Chèn Phần Tử</h3>
+                        <div class="form-group">
+                            <label for="insertValue">Giá trị cần chèn:</label>
+                            <input type="number" id="insertValue" placeholder="Nhập số">
+                        </div>
+                        <div class="form-group">
+                            <label for="insertPosition">Vị trí chèn (chỉ số 0-based):</label>
+                            <input type="number" id="insertPosition" placeholder="Nhập vị trí (ví dụ: 0, 1, 2...)">
+                        </div>
+                        <div class="button-group">
+                            <button id="btnInsertElement">Chèn Phần Tử</button>
+                        </div>
+                    </div>
+
+                    <div class="operation-block">
+                        <h3>Xóa Phần Tử</h3>
+                        <div class="form-group">
+                            <label for="deletePosition">Xóa theo vị trí (chỉ số 0-based):</label>
+                            <input type="number" id="deletePosition" placeholder="Nhập vị trí">
+                            <button id="btnDeleteByPosition" style="margin-top: 8px;">Xóa Theo Vị Trí</button>
+                        </div>
+                        <hr class="custom-hr">
+                        <div class="form-group">
+                            <label for="deleteValue">Xóa theo giá trị (phần tử đầu tiên tìm thấy):</label>
+                            <input type="number" id="deleteValue" placeholder="Nhập giá trị">
+                            <button id="btnDeleteByValue" style="margin-top: 8px;">Xóa Theo Giá Trị</button>
+                        </div>
+                    </div>
+
+
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
