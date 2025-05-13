@@ -1,36 +1,23 @@
         :root {
             --primary-color: #e41717;
             --primary-dark-color: #b30000;
-            /* Xanh dương đậm hơn */
             --secondary-color: #6c757d;
-            /* Xám phụ */
             --light-bg-color: #f8f9fa;
-            /* Nền sáng */
             --dark-text-color: #343a40;
-            /* Chữ tối */
             --light-text-color: #f8f9fa;
-            /* Chữ sáng */
             --border-color: #dee2e6;
-            /* Màu viền */
             --success-color: #28a745;
-            /* Xanh lá thành công */
             --error-color: #dc3545;
-            /* Đỏ lỗi */
             --info-color: #17a2b8;
-            /* Xanh ngọc thông tin */
             --warning-color: #ffc107;
-
             --border-radius: 0.375rem;
-            /* Bo góc chung */
             --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.07);
-            /* Đổ bóng nhẹ hơn */
             --transition-speed: 0.2s;
         }
 
         html,
         body {
             height: 100%;
-            /* Đảm bảo html và body chiếm full chiều cao */
             margin: 0;
             padding: 0;
             font-family: 'Roboto', sans-serif;
@@ -43,9 +30,7 @@
             display: flex;
             flex-direction: column;
             height: 100%;
-            /* Wrapper chiếm full chiều cao */
             overflow: hidden;
-            /* Tránh scroll không cần thiết ở body */
         }
 
         header.app-header {
@@ -55,7 +40,6 @@
             text-align: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             z-index: 10;
-            /* Đảm bảo header ở trên */
         }
 
         header.app-header h1 {
@@ -68,22 +52,15 @@
             gap: 20px;
             padding: 20px;
             flex-grow: 1;
-            /* Cho phép grid chiếm không gian còn lại */
             overflow-y: auto;
-            /* Cho phép scroll nội dung chính nếu cần */
             height: calc(100% - 70px);
         }
 
-        /* Điều chỉnh grid cho màn hình lớn hơn */
         @media (min-width: 800px) {
-
-            /* lg breakpoint */
             .main-content-grid {
                 display: grid;
                 grid-template-columns: 3fr 2fr;
-                /* 3 cột cho input/display, 2 cột cho operations */
                 grid-template-rows: auto 1fr;
-                /* Display/input ở trên, operations và visualization ở dưới */
                 grid-template-areas:
                     "main-left main-right"
                     "main-left main-right";
@@ -175,7 +152,6 @@
             transform: translateY(-2px);
         }
 
-        /* Các class highlight cho mô phỏng từng bước có thể không cần thiết nữa nếu bỏ hoàn toàn mô phỏng */
         .bar.highlight-compare {
             background-color: var(--warning-color);
             color: var(--dark-text-color);
@@ -370,10 +346,7 @@
             border-top: 1px solid var(--border-color);
         }
 
-        /* Responsive adjustments cho grid */
         @media (max-width: 991px) {
-
-            /* Dưới lg */
             .grid-area-left,
             .grid-area-right {
                 overflow-y: visible;
@@ -387,8 +360,6 @@
         }
 
         @media (max-width: 768px) {
-
-            /* md */
             header.app-header h1 {
                 font-size: 1.6em;
             }
@@ -416,8 +387,6 @@
         }
 
         @media (max-width: 480px) {
-
-            /* sm */
             header.app-header h1 {
                 font-size: 1.4em;
             }
