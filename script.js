@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayMessage(`Đã tạo mảng ngẫu nhiên gồm ${size} phần tử.`, "success");
     });
 
-    // --- Array Operations Logic (Tìm kiếm, Thông tin mảng, Chèn, Xóa giữ nguyên) ---
+    // --- Array Operations Logic (Tìm kiếm, Thông tin mảng, Chèn, Xóa) ---
     btnFindMax.addEventListener('click', () => {
         if (currentArray.length === 0) {
             maxResultTxtEl.textContent = "Mảng rỗng";
