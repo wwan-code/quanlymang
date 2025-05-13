@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     quickSortLogic(currentArray, 0, currentArray.length - 1);
                     break;
                 case 'mergeSort':
-                    performMergeSort(tempArray);
+                    performMergeSort(currentArray);
                     break;
             }
             updateArrayDisplay();
