@@ -160,8 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sumResultTxtEl.textContent = sum;
     });
 
-    // Cập nhật hàm tìm kiếm để không dùng highlightBar nếu không cần thiết
-    btnLinearSearch.addEventListener('click', async () => { // async có thể bỏ nếu không có await
+    btnLinearSearch.addEventListener('click', async () => {
         if (currentArray.length === 0) {
             searchResultTxtEl.textContent = "Mảng rỗng";
             displayMessage("Mảng rỗng, không thể thực hiện tìm kiếm.", "info");
@@ -193,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    btnBinarySearch.addEventListener('click', async () => { // async có thể bỏ
+    btnBinarySearch.addEventListener('click', async () => {
         if (currentArray.length === 0) {
             searchResultTxtEl.textContent = "Mảng rỗng";
             displayMessage("Mảng rỗng, không thể thực hiện tìm kiếm.", "info");
@@ -224,11 +223,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let low = 0, high = currentArray.length - 1, foundIndex = -1;
         while (low <= high) {
             let mid = Math.floor((low + high) / 2);
-            // await highlightBar(mid, 'highlight-pivot'); // Bỏ dòng này
 
             if (currentArray[mid] === value) {
                 foundIndex = mid;
-                // await highlightBar(mid, 'highlight-found', ANIMATION_DELAY_MS * 2); // Bỏ dòng này
                 break;
             } else if (currentArray[mid] < value) {
                 low = mid + 1;
@@ -300,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
         deleteValueEl.value = '';
     });
 
-    btnSortArray.addEventListener('click', async () => { // Giữ async để tương thích nếu sau này muốn thêm delay nhỏ
+    btnSortArray.addEventListener('click', async () => {
         if (currentArray.length === 0) {
             displayMessage("Mảng rỗng, không có gì để sắp xếp.", "info");
             return;
@@ -309,7 +306,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const algo = sortAlgorithmSelectEl.value;
         try {
-            // Gọi trực tiếp hàm sắp xếp logic, không còn "Visual" nữa
             switch (algo) {
                 case 'bubbleSort':
                     bubbleSortLogic(currentArray);
@@ -323,9 +319,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 case 'quickSort':
                     quickSortLogic(currentArray, 0, currentArray.length - 1);
                     break;
+                case 'quickSort':
+                    currentArray = mergeSortLogic(currentArray);
+                    break;
             }
-            // Có thể thêm một delay nhỏ ở đây nếu muốn người dùng cảm nhận được sự thay đổi
-            // await new Promise(resolve => setTimeout(resolve, 50)); // Ví dụ delay 50ms
             updateArrayDisplay();
             arrayInputEl.value = currentArray.join(', ');
             displayMessage(`Mảng đã được sắp xếp thành công bằng ${algo}.`, "success");
@@ -338,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Sorting Algorithms (Logic only, no visualization steps) ---
-    function bubbleSortLogic(arr) {
+    function bubbleSortLogic(arr) { // Sắp xếp nổi bọt
         let n = arr.length;
         for (let i = 0; i < n - 1; i++) {
             for (let j = 0; j < n - i - 1; j++) {
@@ -349,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function selectionSortLogic(arr) {
+    function selectionSortLogic(arr) { // Sắp xếp chọn
         let n = arr.length;
         for (let i = 0; i < n - 1; i++) {
             let minIdx = i;
@@ -364,7 +361,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function insertionSortLogic(arr) {
+    function insertionSortLogic(arr) { // Sắp xếp chèn
         let n = arr.length;
         for (let i = 1; i < n; i++) {
             let key = arr[i];
@@ -377,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function quickSortLogic(arr, low, high) {
+    function quickSortLogic(arr, low, high) { // Sắp xếp nhanh
         if (low < high) {
             let pi = partitionLogic(arr, low, high);
             quickSortLogic(arr, low, pi - 1);
@@ -398,6 +395,22 @@ document.addEventListener('DOMContentLoaded', () => {
         return i + 1;
     }
 
+    function mergeSortLogic(arr) { // Sắp xếp trộn (Merge Sort)
+        if (arr.length <= 1) return arr;
+        const mid = Math.floor(arr.length / 2);
+        const left = mergeSortLogic(arr.slice(0, mid));
+        const right = mergeSortLogic(arr.slice(mid));
+        return merge(left, right);
+    }
+    
+    function merge(left, right) {
+        let result = [], i = 0, j = 0;
+        while (i < left.length && j < right.length) {
+            if (left[i] < right[j]) result.push(left[i++]);
+            else result.push(right[j++]);
+        }
+        return result.concat(left.slice(i)).concat(right.slice(j));
+    }
     // --- Initial Call ---
     updateArrayDisplay();
     window.addEventListener('resize', renderVisualization);
