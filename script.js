@@ -319,8 +319,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 case 'quickSort':
                     quickSortLogic(currentArray, 0, currentArray.length - 1);
                     break;
-                case 'quickSort':
-                    currentArray = mergeSortLogic(currentArray);
+                case 'mergeSort':
+                    performMergeSort(tempArray);
                     break;
             }
             updateArrayDisplay();
@@ -395,21 +395,54 @@ document.addEventListener('DOMContentLoaded', () => {
         return i + 1;
     }
 
-    function mergeSortLogic(arr) { // Sắp xếp trộn (Merge Sort)
-        if (arr.length <= 1) return arr;
-        const mid = Math.floor(arr.length / 2);
-        const left = mergeSortLogic(arr.slice(0, mid));
-        const right = mergeSortLogic(arr.slice(mid));
-        return merge(left, right);
-    }
-    
-    function merge(left, right) {
-        let result = [], i = 0, j = 0;
-        while (i < left.length && j < right.length) {
-            if (left[i] < right[j]) result.push(left[i++]);
-            else result.push(right[j++]);
+    function performMergeSort(arr) { // Sắp xếp trộn
+        const sortedArray = mergeSortRecursive(arr);
+        for (let i = 0; i < arr.length; i++) {
+            arr[i] = sortedArray[i];
         }
-        return result.concat(left.slice(i)).concat(right.slice(j));
+    }
+
+    function mergeSortRecursive(arr) {
+        const n = arr.length;
+        if (n <= 1) {
+            return arr;
+        }
+
+        const mid = Math.floor(n / 2);
+        const leftHalf = arr.slice(0, mid);
+        const rightHalf = arr.slice(mid);
+
+        const sortedLeft = mergeSortRecursive(leftHalf);
+        const sortedRight = mergeSortRecursive(rightHalf);
+
+        return merge(sortedLeft, sortedRight);
+    }
+
+    function merge(leftArr, rightArr) {
+        const result = [];
+        let leftIndex = 0;
+        let rightIndex = 0;
+
+        while (leftIndex < leftArr.length && rightIndex < rightArr.length) {
+            if (leftArr[leftIndex] < rightArr[rightIndex]) {
+                result.push(leftArr[leftIndex]);
+                leftIndex++;
+            } else {
+                result.push(rightArr[rightIndex]);
+                rightIndex++;
+            }
+        }
+
+        while (leftIndex < leftArr.length) {
+            result.push(leftArr[leftIndex]);
+            leftIndex++;
+        }
+
+        while (rightIndex < rightArr.length) {
+            result.push(rightArr[rightIndex]);
+            rightIndex++;
+        }
+        return result;
     }
     // --- Initial Call ---
     updateArrayDisplay();
